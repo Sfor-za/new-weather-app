@@ -1,13 +1,87 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Outfit&display=swap');
+*{
+  padding:0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+}
+body {
+  
+  font-family: 'Outfit', 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
 }
+h1{
+  font-size: 4rem;
+}
+p{
+  font-size: 1.4rem;
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+}
+h2{
+  font-size: 1.5rem;
+}
+.app{
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  background: rgba(0,0,0,0.4);
+  color: white; 
+  
+}
+.app:before{
+  content: '';
+  background: url('./assets/halstatt.jpg') no-repeat center center/cover;
+  position: absolute;
+  width: 100%;
+  height:100%;
+  top:0;
+  left: 0;
+  z-index: -1;
+}
+.search{
+  text-align: center;
+  padding: 1rem;
+}
+input{
+  border-width: 0px;
+  border-radius: 20px;
+  height: 2rem;
+  width: 15rem;
+  background: rgba(0,0,0,0.4);
+  color: white;
+  text-align: center;
+
+}
+input:focus{
+ outline-width:2px ;
+  outline-color: rgba(255,255,255,0.5);
+  outline-style:solid;
+}
+::placeholder{
+  font-family: 'Outfit', 'Segoe UI', 'Roboto';
+  color:white;
+}
+.container{
+  padding: 0 1rem;
+  max-width:700px;
+  height: 80%;
+  position: relative;
+  margin: auto;
+  top:5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.bottom{
+  display: flex;
+  justify-content: space-evenly;
+  background: rgba(255,255,255,0.1);
+  border-radius: 10px;
+  /* margin: 2%; */
+}
+.feels, .humidity, .winds{
+  text-align: center;
+  padding: 3px;
 }
