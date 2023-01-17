@@ -2,76 +2,74 @@ import { useState } from "react";
 
 function App() {
   const [location,setLocation] = useState('');
-  const options = {
-    method: "GET",
-    headers: {
-      "X-RapidAPI-Key": "903bd15db3mshba456cf9cfc01d3p1989a4jsn020fc97e9d75",
-      "X-RapidAPI-Host": "weather-by-api-ninjas.p.rapidapi.com",
-    },
-  };
- 
-  setLocation=document.getElementById('city').value;
- 
-  const getWeather = (city)=>{
-   fetch(
-     "https://weather-by-api-ninjas.p.rapidapi.com/v1/weather?city="+city,
-     options
-     )
-     .then((response) => response.json())
-     .then((response) => {
-       Temp.innerHTML = response.temp;
-       Feels_like.innerHTML = response.feels_like;
-       Humidity.innerHTML = response.humidity;
-       Min_temp.innerHTML = response.min_temp;
-       Max_temp.innerHTML = response.max_temp;
-       Wind_speed.innerHTML = response.wind_speed;
-       console.log(response);
-      })
-      .catch((err) => console.error(err));
-    }
+  const [data,setData]= useState('');    
+
+  const getLocation=(e)=>{
+    setLocation(e.target.value);
     
+  }
+  const handleKeyDown=(e)=>{
+   if(e.key==='Enter'){
+    getWeather(location);
+   }
+   
+  }
+  const getWeather =(place)=>{
+
+    const options = {
+      method: 'GET',
+      headers: {
+        'X-RapidAPI-Key': '903bd15db3mshba456cf9cfc01d3p1989a4jsn020fc97e9d75',
+        'X-RapidAPI-Host': 'weather-by-api-ninjas.p.rapidapi.com'
+      }
+    };
+    
+    fetch('https://weather-by-api-ninjas.p.rapidapi.com/v1/weather?city='+ place, options)
+    .then(response => response.json())
+    .then(response => {
+       setData(response);
+    })
+    .catch(err => console.error(err));
+    
+    
+  }
 
   return (
     <div className="app">
       <div className="search">
-        <input
-          className="searchbar"
-          type="text"
-          placeholder="Enter a City"
-          onChange={location}
-          id="city"
-          value={location}
-
-        />
+          <input
+            className="searchbar"
+            value={location}
+            type="text"
+            placeholder="Enter a City"
+            onChange={getLocation}
+            onKeyDown={handleKeyDown}
+          />
       </div>
       <div className="container">
         <div className="top">
           <div className="cityName">
-            <p>Delhi</p>
+           <p className="city">{location}</p>
           </div>
           <div className="temp">
-            <h1><span id="Temp"></span>°C</h1>
+            <h1>{data.temp ?<span>{data.temp}°C</span> : null}</h1>
           </div>
           <div className="weather">
-            <p>Min <span id="Min_temp"></span>°C</p>
-            <p>Max <span id="Max_temp"></span>°C</p>
+            <p>{data.min_temp ?<span>Min {data.min_temp}°C</span> : null}</p>
+            <p>{data.max_temp ?<span>Max {data.max_temp}°C</span> : null}</p>
           </div>
         </div>
-        <div className="bottom">
+        {data.temp!== undefined && <div className="bottom">
           <div className="feels">
-            <p>Feels Like</p>
-            <h2><span id="Feels_like"></span>°C</h2>
+          {data.feels_like ?<span><p>Feels Like</p><h2>{data.feels_like}°C</h2></span> : null}
           </div>
           <div className="winds">
-            <p>Wind Speed</p>
-            <h2><span id="Wind_speed"></span></h2>
-            <h2></h2>
+           {data.wind_speed ?<span><p>Wind Speed</p><h2>{(data.wind_speed*1.6).toFixed(1)} Km/h</h2></span> : null}
           </div>
           <div className="humidity">
-            <p>Humidity</p>
-            <h2><span id="Humidity"></span>%</h2>
+            {data.wind_speed ?<span><p>Humidity</p><h2>{data.humidity}%</h2></span> : null}
           </div>
-        </div>
+        </div>}
       </div>
     </div>
   );
