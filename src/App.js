@@ -24,7 +24,7 @@ function App() {
       }
     };
     
-    fetch(`https://weather-by-api-ninjas.p.rapidapi.com/v1/weather?city=${encodeURIComponent(place)}`, options)
+    fetch(`https://api.api-ninjas.com/v1/weather?city=${encodeURIComponent(place)}`, options)
     .then(response => response.json())
     .then(response => {
        setData(response);
